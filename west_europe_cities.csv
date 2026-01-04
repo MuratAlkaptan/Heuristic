@@ -1,0 +1,57 @@
+id,country,city,x,y,sites,satisfaction,visit_hours,daily_stay_eur,attraction_eur
+0,Portugal,Lisbon,10,0,15,83.4,23.4,102,13
+1,Portugal,Porto,30,80,11,87.4,14.3,95,11
+2,Spain,Madrid,210,130,25,91.2,28.0,112,12
+3,Spain,Barcelona,340,180,8,80.4,7.1,114,12
+4,Spain,Valencia,320,130,18,77.3,18.9,99,11
+5,Spain,Seville,240,60,13,85.1,20.8,103,9
+6,Spain,Granada,280,50,13,67.2,16.0,95,10
+7,Spain,Bilbao,260,230,18,82.6,22.7,86,13
+8,France,Paris,490,420,19,85.8,16.6,157,18
+9,France,Lyon,630,270,9,75.6,13.0,156,21
+10,France,Marseille,670,180,14,87.9,14.1,135,22
+11,France,Nice,710,200,15,77.8,21.7,142,20
+12,France,Bordeaux,410,280,8,89.1,9.7,146,20
+13,France,Toulouse,460,240,14,76.8,16.6,126,21
+14,France,Nantes,380,350,18,82.5,24.1,149,22
+15,France,Strasbourg,770,340,16,71.3,17.9,162,18
+16,France,Lille,510,470,18,77.5,21.3,157,17
+17,Belgium,Brussels,520,420,18,92.1,14.5,108,18
+18,Belgium,Bruges,480,410,15,85.1,23.1,117,13
+19,Belgium,Antwerp,530,440,19,77.1,23.0,137,17
+20,Belgium,Ghent,500,430,16,81.6,13.2,114,15
+21,Netherlands,Amsterdam,540,470,26,79.7,28.0,141,16
+22,Netherlands,Rotterdam,520,440,15,88.0,14.2,125,18
+23,Netherlands,The Hague,510,450,9,81.2,13.7,122,14
+24,Netherlands,Utrecht,550,460,14,68.7,21.5,110,16
+25,Luxembourg,Luxembourg City,540,405,16,88.3,13.9,175,17
+26,United Kingdom,London,390,520,23,78.8,28.0,137,23
+27,United Kingdom,Edinburgh,330,660,13,68.9,13.7,153,23
+28,United Kingdom,Manchester,350,590,15,82.2,23.3,151,20
+29,United Kingdom,Liverpool,330,580,10,89.0,15.0,149,16
+30,United Kingdom,Bristol,370,540,18,69.0,16.3,163,21
+31,Ireland,Dublin,250,560,22,85.0,28.0,139,15
+32,Ireland,Cork,220,510,8,89.0,8.9,118,21
+33,Ireland,Galway,190,550,18,73.8,25.5,116,18
+34,Switzerland,Zurich,630,370,19,89.6,22.0,199,22
+35,Switzerland,Geneva,550,300,15,79.3,21.7,154,22
+36,Switzerland,Basel,600,380,14,80.6,16.3,158,24
+37,Switzerland,Bern,590,350,16,75.0,15.3,199,17
+38,Switzerland,Lausanne,570,310,16,88.3,13.4,196,24
+39,Germany,Frankfurt,640,410,15,82.8,22.5,107,15
+40,Germany,Cologne,610,440,20,87.1,28.0,108,16
+41,Germany,Dusseldorf,600,450,10,74.7,11.4,119,12
+42,Germany,Stuttgart,670,350,12,69.7,11.3,121,19
+43,Germany,Munich,720,330,14,72.2,13.2,124,15
+44,Germany,Hamburg,700,560,16,84.9,23.0,136,18
+45,Germany,Berlin,900,490,17,78.1,14.9,121,14
+46,Germany,Heidelberg,650,380,16,84.6,23.7,130,18
+47,Austria,Vienna,840,390,19,92.4,20.5,125,16
+48,Austria,Salzburg,780,350,11,67.7,15.1,120,14
+49,Austria,Innsbruck,740,330,11,79.2,13.8,125,11
+50,Italy,Milan,650,230,20,71.6,28.0,105,17
+51,Italy,Turin,590,220,20,73.9,28.0,124,13
+52,Italy,Venice,730,230,13,71.9,19.1,109,15
+53,Italy,Florence,670,180,12,71.4,9.7,133,19
+54,Italy,Bologna,700,200,12,75.4,9.7,102,12
+55,Italy,Rome,690,130,15,79.6,18.7,138,19
