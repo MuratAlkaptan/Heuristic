@@ -1,21 +1,17 @@
-// travel_problem.cpp
-// Travel itinerary optimization over a fixed "West Europe" synthetic dataset.
-// Goal: maximize travel "quality" under soft constraints (time, budget).
-// Compare three constraint handlers:
-//  1) Penalty-only
-//  2) Repair-only (drop lowest quality-per-time until feasible)
-//  3) Hybrid (limited swap-in "repair-light"; if still infeasible -> penalty)
-//
-// Compile: g++ -O2 -std=c++17 travel_problem.cpp -o travel
-// Run:     ./travel
+// g++ -O2 -std=c++17 main.cpp -o main
+// ./main
 
 #include "ga_baseline.h"
 
 #include <algorithm>
 #include <cmath>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <numeric>
 #include <random>
+#include <sstream>
+#include <stdexcept>
 #include <string>
 #include <utility>
 #include <vector>
@@ -27,10 +23,14 @@ using std::vector;
 static constexpr double HOURS_PER_DAY = 8.0;
 
 struct City {
+    // Loaded attributes
     string country;
     string name;
 
-    // Synthetic attributes (fixed after generation)
+    // Optional (from CSV; not used in optimization, but handy for future visualization)
+    double x = 0.0;
+    double y = 0.0;
+
     int sites = 0;                // number of attractions
     double satisfaction = 0.0;    // 0..100 (per city)
     double dailyStayEUR = 0.0;    // lodging cost per day
@@ -38,13 +38,9 @@ struct City {
     double visitHours = 0.0;      // time to "cover" the city attractions
 };
 
-// Synthetic 2D coordinate (km) for travel time graph generation
-struct Pt { double x=0, y=0; };
-
 struct Dataset {
     vector<City> cities;
-    vector<Pt> pos;
-    vector<vector<double>> travelHours; // symmetric
+    vector<vector<double>> travelHours; // symmetric NxN
 };
 
 enum class Method { PenaltyOnly, RepairOnly, Hybrid };
@@ -55,10 +51,10 @@ struct Genome {
 };
 
 struct Metrics {
-    double quality = 0.0;   // raw "quality"
-    double timeDays = 0.0;  // total time in days (city + travel)
-    double costEUR = 0.0;   // lodging + attractions
-    bool feasible = false;  // timeDays <= T and costEUR <= B
+    double quality = 0.0;    // raw "quality"
+    double timeDays = 0.0;   // total time in days (city + travel)
+    double costEUR = 0.0;    // lodging + attractions
+    bool feasible = false;   // timeDays <= T and costEUR <= B
     double fitness = -1e300; // what GA maximizes
 };
 
@@ -66,203 +62,101 @@ static double clamp(double v, double lo, double hi) {
     return std::max(lo, std::min(hi, v));
 }
 
-static Dataset buildWestEuropeDataset() {
-    // Fixed city list + fixed synthetic positions (km) for reproducible travel times.
-    // City attributes are generated deterministically from a fixed RNG seed.
+// ----------------------- CSV loading (simple, no quoted commas) -----------------------
+
+static vector<string> splitCSVLine(const string& line) {
+    vector<string> out;
+    std::stringstream ss(line);
+    string item;
+    while (std::getline(ss, item, ',')) out.push_back(item);
+    return out;
+}
+
+static Dataset loadDatasetFromCSVs(const string& citiesCsvPath, const string& travelCsvPath) {
     Dataset D;
 
-    // Country anchors (rough synthetic map of West Europe)
-    auto add = [&](const string& country, const string& name, double ax, double ay, double dx, double dy) {
-        D.cities.push_back(City{country, name});
-        D.pos.push_back(Pt{ax + dx, ay + dy});
-    };
+    // Cities CSV header:
+    // id,country,city,x,y,sites,satisfaction,visit_hours,daily_stay_eur,attraction_eur
+    {
+        std::ifstream fin(citiesCsvPath);
+        if (!fin) throw std::runtime_error("Cannot open cities CSV: " + citiesCsvPath);
 
-    // Anchors
-    const Pt Portugal{  0,   0};
-    const Pt Spain   {200, 120};
-    const Pt France  {450, 260};
-    const Pt Belgium {520, 420};
-    const Pt Neth    {540, 470};
-    const Pt Lux     {540, 405};
-    const Pt UK      {360, 520};
-    const Pt Ireland {250, 560};
-    const Pt Swiss   {610, 290};
-    const Pt Germany {680, 420};
-    const Pt Austria {780, 380};
-    const Pt Italy   {650, 170};
+        string line;
+        if (!std::getline(fin, line)) throw std::runtime_error("Cities CSV is empty: " + citiesCsvPath); // header
 
-    // Portugal
-    add("Portugal","Lisbon",  Portugal.x,Portugal.y,  10,  0);
-    add("Portugal","Porto",   Portugal.x,Portugal.y,  30, 80);
+        // We load by id order (0..N-1). If file is already in id order, this is trivial.
+        // If not, we still place each city at its id index.
+        vector<City> byId;
 
-    // Spain
-    add("Spain","Madrid",     Spain.x,Spain.y,  10,  10);
-    add("Spain","Barcelona",  Spain.x,Spain.y, 140,  60);
-    add("Spain","Valencia",   Spain.x,Spain.y, 120,  10);
-    add("Spain","Seville",    Spain.x,Spain.y,  40, -60);
-    add("Spain","Granada",    Spain.x,Spain.y,  80, -70);
-    add("Spain","Bilbao",     Spain.x,Spain.y,  60, 110);
+        while (std::getline(fin, line)) {
+            if (line.empty()) continue;
+            auto c = splitCSVLine(line);
+            if (c.size() < 10) throw std::runtime_error("Bad cities row (expected 10 columns): " + line);
 
-    // France
-    add("France","Paris",     France.x,France.y,  40, 160);
-    add("France","Lyon",      France.x,France.y, 180,  10);
-    add("France","Marseille", France.x,France.y, 220, -80);
-    add("France","Nice",      France.x,France.y, 260, -60);
-    add("France","Bordeaux",  France.x,France.y, -40,  20);
-    add("France","Toulouse",  France.x,France.y,  10, -20);
-    add("France","Nantes",    France.x,France.y, -70,  90);
-    add("France","Strasbourg",France.x,France.y, 320,  80);
-    add("France","Lille",     France.x,France.y,  60, 210);
+            int id = std::stoi(c[0]);
+            if (id < 0) throw std::runtime_error("Negative city id: " + line);
 
-    // Belgium
-    add("Belgium","Brussels", Belgium.x,Belgium.y,  0,  0);
-    add("Belgium","Bruges",   Belgium.x,Belgium.y, -40, -10);
-    add("Belgium","Antwerp",  Belgium.x,Belgium.y,  10,  20);
-    add("Belgium","Ghent",    Belgium.x,Belgium.y, -20,  10);
+            if ((int)byId.size() <= id) byId.resize(id + 1);
 
-    // Netherlands
-    add("Netherlands","Amsterdam", Neth.x,Neth.y,  0,  0);
-    add("Netherlands","Rotterdam", Neth.x,Neth.y, -20, -30);
-    add("Netherlands","The Hague", Neth.x,Neth.y, -30, -20);
-    add("Netherlands","Utrecht",   Neth.x,Neth.y,  10, -10);
+            City city;
+            city.country       = c[1];
+            city.name          = c[2];
+            city.x             = std::stod(c[3]);
+            city.y             = std::stod(c[4]);
+            city.sites         = std::stoi(c[5]);
+            city.satisfaction  = std::stod(c[6]);
+            city.visitHours    = std::stod(c[7]);
+            city.dailyStayEUR  = std::stod(c[8]);
+            city.attractionEUR = std::stod(c[9]);
 
-    // Luxembourg
-    add("Luxembourg","Luxembourg City", Lux.x,Lux.y, 0, 0);
+            byId[id] = city;
+        }
 
-    // UK
-    add("United Kingdom","London",     UK.x,UK.y,  30,  0);
-    add("United Kingdom","Edinburgh",  UK.x,UK.y, -30, 140);
-    add("United Kingdom","Manchester", UK.x,UK.y, -10,  70);
-    add("United Kingdom","Liverpool",  UK.x,UK.y, -30,  60);
-    add("United Kingdom","Bristol",    UK.x,UK.y,  10,  20);
+        // Basic sanity check: ensure no "default-empty" city slots exist
+        for (int i = 0; i < (int)byId.size(); ++i) {
+            if (byId[i].name.empty()) {
+                throw std::runtime_error("Missing city id " + std::to_string(i) + " in cities CSV.");
+            }
+        }
 
-    // Ireland
-    add("Ireland","Dublin",  Ireland.x,Ireland.y,  0,  0);
-    add("Ireland","Cork",    Ireland.x,Ireland.y, -30, -50);
-    add("Ireland","Galway",  Ireland.x,Ireland.y, -60, -10);
-
-    // Switzerland
-    add("Switzerland","Zurich",   Swiss.x,Swiss.y,  20,  80);
-    add("Switzerland","Geneva",   Swiss.x,Swiss.y, -60,  10);
-    add("Switzerland","Basel",    Swiss.x,Swiss.y, -10,  90);
-    add("Switzerland","Bern",     Swiss.x,Swiss.y, -20,  60);
-    add("Switzerland","Lausanne", Swiss.x,Swiss.y, -40,  20);
-
-    // Germany
-    add("Germany","Frankfurt",  Germany.x,Germany.y, -40, -10);
-    add("Germany","Cologne",    Germany.x,Germany.y, -70,  20);
-    add("Germany","Dusseldorf", Germany.x,Germany.y, -80,  30);
-    add("Germany","Stuttgart",  Germany.x,Germany.y, -10, -70);
-    add("Germany","Munich",     Germany.x,Germany.y,  40, -90);
-    add("Germany","Hamburg",    Germany.x,Germany.y,  20, 140);
-    add("Germany","Berlin",     Germany.x,Germany.y, 220,  70);
-    add("Germany","Heidelberg", Germany.x,Germany.y, -30, -40);
-
-    // Austria
-    add("Austria","Vienna",    Austria.x,Austria.y,  60,  10);
-    add("Austria","Salzburg",  Austria.x,Austria.y,   0, -30);
-    add("Austria","Innsbruck", Austria.x,Austria.y, -40, -50);
-
-    // Italy (north/central emphasis)
-    add("Italy","Milan",     Italy.x,Italy.y,   0,  60);
-    add("Italy","Turin",     Italy.x,Italy.y, -60,  50);
-    add("Italy","Venice",    Italy.x,Italy.y,  80,  60);
-    add("Italy","Florence",  Italy.x,Italy.y,  20,  10);
-    add("Italy","Bologna",   Italy.x,Italy.y,  50,  30);
-    add("Italy","Rome",      Italy.x,Italy.y,  40, -40);
-
-    // --- Generate synthetic attributes deterministically ---
-    std::mt19937 rng(2026);
-    auto ur = [&](double a, double b) {
-        std::uniform_real_distribution<double> U(a, b);
-        return U(rng);
-    };
-    auto ui = [&](int a, int b) {
-        std::uniform_int_distribution<int> U(a, b);
-        return U(rng);
-    };
-
-    auto countryDailyBase = [&](const string& c)->double {
-        if (c == "Switzerland") return 170;
-        if (c == "Luxembourg") return 155;
-        if (c == "United Kingdom") return 145;
-        if (c == "Ireland") return 135;
-        if (c == "France") return 135;
-        if (c == "Netherlands") return 125;
-        if (c == "Belgium") return 120;
-        if (c == "Germany") return 120;
-        if (c == "Austria") return 115;
-        if (c == "Italy") return 115;
-        if (c == "Spain") return 100;
-        if (c == "Portugal") return 95;
-        return 120;
-    };
-
-    auto countryAttractionBase = [&](const string& c)->double {
-        if (c == "Switzerland") return 22;
-        if (c == "Luxembourg") return 20;
-        if (c == "United Kingdom") return 20;
-        if (c == "Ireland") return 18;
-        if (c == "France") return 18;
-        if (c == "Netherlands") return 16;
-        if (c == "Belgium") return 15;
-        if (c == "Germany") return 15;
-        if (c == "Austria") return 14;
-        if (c == "Italy") return 16;
-        if (c == "Spain") return 12;
-        if (c == "Portugal") return 11;
-        return 15;
-    };
-
-    for (auto& city : D.cities) {
-        // Sites: create variance; major capitals tend to have more sites
-        bool capitalish = (city.name == "Paris" || city.name == "London" || city.name == "Amsterdam" ||
-                           city.name == "Madrid" || city.name == "Rome" || city.name == "Berlin" ||
-                           city.name == "Vienna" || city.name == "Dublin" || city.name == "Brussels" ||
-                           city.name == "Lisbon" || city.name == "Zurich");
-
-        city.sites = capitalish ? ui(14, 26) : ui(8, 20);
-
-        // Satisfaction: capitals slightly higher; add randomness
-        double baseSat = capitalish ? ur(78, 95) : ur(65, 90);
-        city.satisfaction = clamp(baseSat, 40, 98);
-
-        // Visit hours: proportional to sites with random "density"
-        double hoursPerSite = ur(0.8, 1.6);
-        city.visitHours = clamp(city.sites * hoursPerSite, 6.0, 28.0); // 0.75 to 3.5 days at 8h/day
-
-        // Costs
-        double dailyBase = countryDailyBase(city.country);
-        double attractBase = countryAttractionBase(city.country);
-        city.dailyStayEUR = clamp(dailyBase * ur(0.85, 1.20), 60.0, 220.0);
-        city.attractionEUR = clamp(attractBase * ur(0.75, 1.25), 6.0, 35.0);
+        D.cities = std::move(byId);
     }
 
-    // --- Build travel time matrix (hours), symmetric, deterministic ---
-    int N = (int)D.cities.size();
+    const int N = (int)D.cities.size();
+    if (N == 0) throw std::runtime_error("No cities loaded from: " + citiesCsvPath);
+
     D.travelHours.assign(N, vector<double>(N, 0.0));
 
-    // Deterministic "noise" for each pair using seeded RNG, but stable.
-    std::mt19937 rng2(777);
-    std::uniform_real_distribution<double> noise(0.90, 1.30);
+    // Travel CSV header:
+    // from_id,to_id,travel_hours
+    {
+        std::ifstream fin(travelCsvPath);
+        if (!fin) throw std::runtime_error("Cannot open travel CSV: " + travelCsvPath);
 
-    for (int i = 0; i < N; ++i) {
-        for (int j = i + 1; j < N; ++j) {
-            double dx = D.pos[i].x - D.pos[j].x;
-            double dy = D.pos[i].y - D.pos[j].y;
-            double distKm = std::sqrt(dx*dx + dy*dy);
+        string line;
+        if (!std::getline(fin, line)) throw std::runtime_error("Travel CSV is empty: " + travelCsvPath); // header
 
-            double base = 0.5 + (distKm / 120.0); // synthetic "effective" speed
-            double t = base * noise(rng2);
+        while (std::getline(fin, line)) {
+            if (line.empty()) continue;
+            auto e = splitCSVLine(line);
+            if (e.size() < 3) throw std::runtime_error("Bad travel row (expected 3 columns): " + line);
 
-            // clamp unrealistic extremes
-            t = clamp(t, 0.4, 18.0);
-            D.travelHours[i][j] = D.travelHours[j][i] = t;
+            int i = std::stoi(e[0]);
+            int j = std::stoi(e[1]);
+            double h = std::stod(e[2]);
+
+            if (i < 0 || j < 0 || i >= N || j >= N || i == j) {
+                throw std::runtime_error("Travel edge out of range: " + line);
+            }
+            D.travelHours[i][j] = h;
+            D.travelHours[j][i] = h; // undirected
         }
     }
 
     return D;
 }
+
+// ----------------------- Objective helpers -----------------------
 
 static double cityQuality(const City& c) {
     // weights: wCities=5 is applied per visited city externally
@@ -329,7 +223,7 @@ static Metrics computeMetricsNoRepair(
 }
 
 // Repair-only: drop cities until feasible (hard feasibility).
-// Removal criterion: remove city with worst (deltaQuality / deltaTimeDays).
+// Removal criterion: remove city with lowest (deltaQuality / deltaTimeDays) => "worst value density".
 static void repairDropWorstRatio(
     const Dataset& D,
     Genome& G,
@@ -346,35 +240,26 @@ static void repairDropWorstRatio(
 
         int L = G.len;
 
-        // Identify removal that hurts quality least per unit time saved.
-        // deltaTime includes: visitHours + travel edge adjustments.
         int bestRemoveIdx = -1;
-        double worstRatio = +1e300; // we want smallest quality/time? Actually "lowest quality per time" => remove smallest ratio.
-        // We'll compute ratio = deltaQuality / deltaTimeSaved; remove smallest ratio.
+        double worstRatio = +1e300; // remove smallest ratio
 
         for (int i = 0; i < L; ++i) {
             int ci = G.perm[i];
             const City& C = D.cities[ci];
 
-            // quality contribution of city
             double dQ = 5.0 + cityQuality(C);
 
-            // time saved: visitHours + travel edges adjustment
             double dTHours = C.visitHours;
-
             if (L >= 2) {
                 if (i == 0) {
-                    // removing first city removes travel from city0->city1
                     int c1 = G.perm[1];
                     dTHours += D.travelHours[ci][c1];
                 } else if (i == L - 1) {
-                    // removing last city removes travel from prev->last
                     int cp = G.perm[L - 2];
                     dTHours += D.travelHours[cp][ci];
                 } else {
                     int cp = G.perm[i - 1];
                     int cn = G.perm[i + 1];
-                    // remove cp->ci and ci->cn, add cp->cn
                     dTHours += D.travelHours[cp][ci] + D.travelHours[ci][cn] - D.travelHours[cp][cn];
                 }
             }
@@ -390,7 +275,6 @@ static void repairDropWorstRatio(
 
         if (bestRemoveIdx < 0) return;
 
-        // Remove by swapping that city with last visited and decreasing len
         std::swap(G.perm[bestRemoveIdx], G.perm[G.len - 1]);
         G.len -= 1;
     }
@@ -412,7 +296,6 @@ static void hybridLightSwapRepair(
     auto violationScore = [&](const Metrics& M)->double {
         double overT = std::max(0.0, M.timeDays - timeDaysLimit);
         double overB = std::max(0.0, M.costEUR - budgetEUR);
-        // Normalize budget overshoot to "hundreds of euros" scale
         return overT + (overB / 100.0);
     };
 
@@ -423,21 +306,18 @@ static void hybridLightSwapRepair(
     std::uniform_int_distribution<int> outDist(std::min(G.len, N - 1), N - 1);
 
     for (int it = 0; it < hybridIters; ++it) {
-        if (G.len >= N) break; // nowhere to swap from outside
+        if (G.len >= N) break;
         int i = inDist(rng);
         int j = outDist(rng);
 
-        // Try swap a visited city with a non-visited one (changes set, keeps len).
         std::swap(G.perm[i], G.perm[j]);
-
         Metrics cand = computeMetricsNoRepair(D, G, budgetEUR, timeDaysLimit);
 
-        // Greedy accept if it reduces violation; else revert.
         if (violationScore(cand) < violationScore(cur)) {
             cur = cand;
             if (cur.feasible) return;
         } else {
-            std::swap(G.perm[i], G.perm[j]); // revert
+            std::swap(G.perm[i], G.perm[j]);
         }
     }
 }
@@ -459,7 +339,6 @@ static Metrics evaluatePlan(
     if (method == Method::RepairOnly) {
         repairDropWorstRatio(D, G, budgetEUR, timeDaysLimit);
         Metrics M = computeMetricsNoRepair(D, G, budgetEUR, timeDaysLimit);
-        // Repair-only uses hard feasibility; fitness is just quality (feasible by construction in normal cases).
         M.fitness = M.quality;
         return M;
     }
@@ -472,7 +351,6 @@ static Metrics evaluatePlan(
         } else {
             double overT = std::max(0.0, M.timeDays - timeDaysLimit);
             double overB = std::max(0.0, M.costEUR - budgetEUR);
-            // penalties (squared)
             double penT = alphaTime * overT * overT;
             double penB = alphaBudget * (overB / 100.0) * (overB / 100.0);
             M.fitness = M.quality - (penT + penB);
@@ -526,13 +404,25 @@ static string methodName(Method m) {
     return "Unknown";
 }
 
-int main() {
-    Dataset D = buildWestEuropeDataset();
+int main(int argc, char** argv) {
+    // Default CSV filenames (put them next to the executable or run with explicit paths)
+    string citiesPath = (argc > 1) ? argv[1] : "west_europe_cities.csv";
+    string travelPath = (argc > 2) ? argv[2] : "west_europe_travel_hours.csv";
+
+    Dataset D;
+    try {
+        D = loadDatasetFromCSVs(citiesPath, travelPath);
+    } catch (const std::exception& e) {
+        std::cerr << "Dataset load error: " << e.what() << "\n";
+        std::cerr << "Usage: ./travel [cities.csv] [travel.csv]\n";
+        return 1;
+    }
+
     const int N = (int)D.cities.size();
 
     // Hypothetical user input (fixed for benchmark)
-    const double budgetEUR = 1000.0;
-    const double timeDaysLimit = 7.0;
+    const double budgetEUR = 500.0;
+    const double timeDaysLimit = 4.0;
 
     // Penalty weights (tuned for this synthetic scale; adjust if you want)
     const double alphaTime = 200.0;   // penalty multiplier for time overrun^2
@@ -542,10 +432,10 @@ int main() {
     const int hybridIters = 50;
 
     GAParams P;
-    P.popSize = 220;
-    P.generations = 250;
+    P.popSize = 10;
+    P.generations = 50;
     P.tournamentK = 3;
-    P.elites = 2;
+    P.elites = 4;
     P.pCrossover = 0.90;
     P.pMutation = 0.35;
     P.seed = 12345;
@@ -556,7 +446,6 @@ int main() {
         std::iota(g.perm.begin(), g.perm.end(), 0);
         std::shuffle(g.perm.begin(), g.perm.end(), rng);
 
-        // Favor realistic initial lengths for 7 days (still allow exploration)
         std::uniform_int_distribution<int> L(3, std::min(18, N));
         g.len = L(rng);
         return g;
@@ -566,10 +455,8 @@ int main() {
         Genome c;
         c.perm = orderCrossoverOX(a.perm, b.perm, rng);
 
-        // inherit/average length
         std::uniform_real_distribution<double> U(0.0, 1.0);
-        if (U(rng) < 0.5) c.len = a.len;
-        else c.len = b.len;
+        c.len = (U(rng) < 0.5) ? a.len : b.len;
 
         c.len = std::max(1, std::min(c.len, N));
         return c;
@@ -580,7 +467,6 @@ int main() {
         int i = Didx(rng), j = Didx(rng);
         std::swap(g.perm[i], g.perm[j]);
 
-        // occasionally adjust length
         std::uniform_real_distribution<double> U(0.0, 1.0);
         if (U(rng) < 0.35) {
             int delta = (U(rng) < 0.5) ? -1 : +1;
@@ -601,7 +487,6 @@ int main() {
         };
 
         auto onGen = [&](int gen, const Genome& best, double bestFit, double avgFit) {
-            // Recompute metrics for logging (using a deterministic RNG copy to avoid side effects)
             std::mt19937 tmp(999 + (unsigned)gen);
             Metrics M = evaluatePlan(D, best, method, budgetEUR, timeDaysLimit, alphaTime, alphaBudget, hybridIters, tmp);
 
