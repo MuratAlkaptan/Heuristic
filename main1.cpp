@@ -39,7 +39,7 @@ using namespace std;
                  const Genome& g, double budget, double timeLimit,
                  double alphaTime, double alphaBudget) {
     Metrics m;
-    int L = min(g.len, (int)cities.size());
+    int L = g.len;
     
     double timeHours = 0, cost = 0, quality = 0;
     
@@ -357,7 +357,7 @@ int main(int argc, char** argv) {
     //GA parameters
     const int popSize = 10;
     const int gens = 50;
-    const int tournK = 3;
+    const int tournK = 5;
     const int elites = 3;
     const double pCross = 0.9;
     const double pMut = 0.35;
