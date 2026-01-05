@@ -1,5 +1,6 @@
 // hybrid: small random repair attempt, then evaluate with penalties
 //O(N * maxSwaps) where N is the number of cities in the permutation
+//O(1) space
 static int randi_local(int lo, int hi) { return lo + (rand() % (hi - lo + 1)); }
 
 Metrics assess(Genome& g,

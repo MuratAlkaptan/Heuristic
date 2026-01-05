@@ -1,6 +1,7 @@
 // repair-only: modifies genome until feasible, then returns unpenalized fitness
-//O(N^2) in the worst case where N is the number of cities
+//O(N^2) Time in the worst case where N is the number of cities
 //worst case happens when we have to reduce length from N to 1
+//O(1) space
 Metrics assess(Genome& g,
                const vector<City>& cities, const vector<vector<double>>& travel,
                double budget, double timeLimit,
