@@ -1,0 +1,301 @@
+id,country,city,x,y,sites,satisfaction,visit_hours,daily_stay_eur,attraction_eur
+0,Portugal,Lisbon,10.0,0.0,15,83.4,23.4,102,13
+1,Portugal,Porto,30.0,80.0,11,87.4,14.3,95,11
+2,Spain,Madrid,210.0,130.0,25,91.2,28.0,112,12
+3,Spain,Barcelona,340.0,180.0,8,80.4,7.1,114,12
+4,Spain,Valencia,320.0,130.0,18,77.3,18.9,99,11
+5,Spain,Seville,240.0,60.0,13,85.1,20.8,103,9
+6,Spain,Granada,280.0,50.0,13,67.2,16.0,95,10
+7,Spain,Bilbao,260.0,230.0,18,82.6,22.7,86,13
+8,France,Paris,490.0,420.0,19,85.8,16.6,157,18
+9,France,Lyon,630.0,270.0,9,75.6,13.0,156,21
+10,France,Marseille,670.0,180.0,14,87.9,14.1,135,22
+11,France,Nice,710.0,200.0,15,77.8,21.7,142,20
+12,France,Bordeaux,410.0,280.0,8,89.1,9.7,146,20
+13,France,Toulouse,460.0,240.0,14,76.8,16.6,126,21
+14,France,Nantes,380.0,350.0,18,82.5,24.1,149,22
+15,France,Strasbourg,770.0,340.0,16,71.3,17.9,162,18
+16,France,Lille,510.0,470.0,18,77.5,21.3,157,17
+17,Belgium,Brussels,520.0,420.0,18,92.1,14.5,108,18
+18,Belgium,Bruges,480.0,410.0,15,85.1,23.1,117,13
+19,Belgium,Antwerp,530.0,440.0,19,77.1,23.0,137,17
+20,Belgium,Ghent,500.0,430.0,16,81.6,13.2,114,15
+21,Netherlands,Amsterdam,540.0,470.0,26,79.7,28.0,141,16
+22,Netherlands,Rotterdam,520.0,440.0,15,88.0,14.2,125,18
+23,Netherlands,The Hague,510.0,450.0,9,81.2,13.7,122,14
+24,Netherlands,Utrecht,550.0,460.0,14,68.7,21.5,110,16
+25,Luxembourg,Luxembourg City,540.0,405.0,16,88.3,13.9,175,17
+26,United Kingdom,London,390.0,520.0,23,78.8,28.0,137,23
+27,United Kingdom,Edinburgh,330.0,660.0,13,68.9,13.7,153,23
+28,United Kingdom,Manchester,350.0,590.0,15,82.2,23.3,151,20
+29,United Kingdom,Liverpool,330.0,580.0,10,89.0,15.0,149,16
+30,United Kingdom,Bristol,370.0,540.0,18,69.0,16.3,163,21
+31,Ireland,Dublin,250.0,560.0,22,85.0,28.0,139,15
+32,Ireland,Cork,220.0,510.0,8,89.0,8.9,118,21
+33,Ireland,Galway,190.0,550.0,18,73.8,25.5,116,18
+34,Switzerland,Zurich,630.0,370.0,19,89.6,22.0,199,22
+35,Switzerland,Geneva,550.0,300.0,15,79.3,21.7,154,22
+36,Switzerland,Basel,600.0,380.0,14,80.6,16.3,158,24
+37,Switzerland,Bern,590.0,350.0,16,75.0,15.3,199,17
+38,Switzerland,Lausanne,570.0,310.0,16,88.3,13.4,196,24
+39,Germany,Frankfurt,640.0,410.0,15,82.8,22.5,107,15
+40,Germany,Cologne,610.0,440.0,20,87.1,28.0,108,16
+41,Germany,Dusseldorf,600.0,450.0,10,74.7,11.4,119,12
+42,Germany,Stuttgart,670.0,350.0,12,69.7,11.3,121,19
+43,Germany,Munich,720.0,330.0,14,72.2,13.2,124,15
+44,Germany,Hamburg,700.0,560.0,16,84.9,23.0,136,18
+45,Germany,Berlin,900.0,490.0,17,78.1,14.9,121,14
+46,Germany,Heidelberg,650.0,380.0,16,84.6,23.7,130,18
+47,Austria,Vienna,840.0,390.0,19,92.4,20.5,125,16
+48,Austria,Salzburg,780.0,350.0,11,67.7,15.1,120,14
+49,Austria,Innsbruck,740.0,330.0,11,79.2,13.8,125,11
+50,Italy,Milan,650.0,230.0,20,71.6,28.0,105,17
+51,Italy,Turin,590.0,220.0,20,73.9,28.0,124,13
+52,Italy,Venice,730.0,230.0,13,71.9,19.1,109,15
+53,Italy,Florence,670.0,180.0,12,71.4,9.7,133,19
+54,Italy,Bologna,700.0,200.0,12,75.4,9.7,102,12
+55,Italy,Rome,690.0,130.0,15,79.6,18.7,138,19
+56,USA,New York,169.62,965.84,8,64.2,19.6,153,21
+57,USA,Los Angeles,54.58,464.59,23,88.1,34.0,273,10
+58,USA,Chicago,316.52,436.95,12,65.5,24.1,201,12
+59,USA,Miami,39.02,949.4,11,65.5,24.5,250,30
+60,USA,Seattle,344.09,957.87,25,66.0,34.0,304,18
+61,USA,San Francisco,253.77,985.51,10,54.5,34.0,173,14
+62,USA,Houston,256.96,640.11,8,63.5,21.3,181,15
+63,USA,Las Vegas,54.33,414.45,18,58.6,34.0,221,45
+64,Canada,Toronto,351.79,389.82,19,58.5,34.0,358,42
+65,Canada,Vancouver,344.08,358.01,19,71.1,34.0,204,19
+66,Canada,Montreal,123.92,470.73,17,56.6,29.2,270,21
+67,Mexico,Mexico City,42.76,593.61,25,92.0,34.0,284,8
+68,Mexico,Cancún,366.88,973.63,8,57.4,6.5,183,14
+69,Brazil,São Paulo,55.93,892.06,15,80.0,31.8,189,27
+70,Brazil,Rio de Janeiro,202.23,489.81,16,64.4,34.0,131,5
+71,Brazil,Brasília,97.1,603.08,28,95.6,34.0,222,29
+72,Argentina,Buenos Aires,115.72,829.81,22,80.3,34.0,190,24
+73,Argentina,Córdoba,312.86,974.48,8,48.3,34.0,100,21
+74,Chile,Santiago,86.36,923.56,23,85.9,34.0,146,8
+75,Colombia,Bogotá,321.16,876.54,12,69.2,9.4,237,22
+76,Peru,Lima,47.11,910.24,25,75.1,34.0,240,19
+77,Peru,Cusco,356.16,678.67,23,77.5,34.0,237,12
+78,United Kingdom,Glasgow,688.97,384.02,13,59.0,26.2,197,16
+79,France,Marseille Metro 12,425.9,630.29,18,48.6,34.0,264,31
+80,Czechia,Prague,685.65,451.99,8,65.9,7.7,223,24
+81,Czechia,Brno,518.68,498.05,6,52.3,33.3,193,16
+82,Poland,Warsaw,560.57,270.96,23,71.9,34.0,234,7
+83,Poland,Kraków,580.12,358.27,10,64.4,16.3,229,9
+84,Sweden,Stockholm,578.92,462.14,37,85.0,34.0,275,10
+85,Sweden,Gothenburg,688.26,425.83,42,87.6,34.0,287,20
+86,Norway,Oslo,691.25,502.24,12,77.9,24.1,211,16
+87,Norway,Bergen,440.54,528.05,21,73.1,34.0,333,6
+88,Denmark,Copenhagen,707.14,362.86,20,91.5,34.0,184,10
+89,Denmark,Aarhus,522.57,577.88,7,56.3,17.6,133,26
+90,Finland,Helsinki,444.02,324.49,14,73.1,13.6,284,9
+91,Finland,Tampere,659.26,392.33,24,73.7,34.0,241,17
+92,Greece,Athens,668.56,358.57,19,73.0,28.7,226,10
+93,Greece,Santorini,458.1,487.6,25,84.8,34.0,200,17
+94,Turkey,Istanbul,465.42,353.76,5,45.0,6.5,274,28
+95,Turkey,Ankara,702.28,297.21,10,54.9,10.0,317,20
+96,Russia,Moscow,538.31,539.67,13,60.5,28.6,166,11
+97,Russia,Saint Petersburg,569.68,505.15,8,74.9,10.0,304,7
+98,Morocco,Casablanca,598.46,158.36,14,63.4,30.1,92,16
+99,Morocco,Marrakech,534.1,178.27,11,78.1,20.1,128,6
+100,Egypt,Cairo,580.37,120.65,32,89.7,34.0,144,11
+101,Egypt,Alexandria,603.93,256.51,8,56.4,9.1,124,6
+102,South Africa,Cape Town,507.84,86.05,22,88.3,33.4,193,10
+103,South Africa,Johannesburg,482.66,122.88,11,74.5,14.2,112,11
+104,South Africa,Durban,488.78,62.62,12,49.0,21.9,62,15
+105,Kenya,Nairobi,637.23,185.06,14,72.5,34.0,131,17
+106,Kenya,Mombasa,418.0,41.01,15,69.0,24.3,63,20
+107,Ethiopia,Addis Ababa,527.8,91.24,23,83.1,34.0,111,19
+108,Ghana,Accra,440.44,266.87,19,55.5,25.8,55,22
+109,Nigeria,Lagos,475.33,119.49,29,68.6,34.0,110,16
+110,Nigeria,Abuja,440.35,55.5,18,82.1,34.0,128,20
+111,Senegal,Dakar,669.21,157.86,24,61.3,34.0,73,7
+112,UAE,Dubai,803.45,228.01,13,59.1,30.3,178,17
+113,UAE,Abu Dhabi,716.32,257.39,17,72.4,34.0,181,10
+114,UAE,Sharjah,707.0,464.07,11,70.6,27.8,262,46
+115,Saudi Arabia,Riyadh,799.18,250.23,5,57.8,6.5,165,24
+116,Qatar,Doha,796.72,275.33,13,52.3,34.0,171,16
+117,Jordan,Amman,764.96,395.81,25,86.2,34.0,264,10
+118,Israel,Tel Aviv-Yafo,740.78,427.9,13,57.5,25.5,185,13
+119,Iran,Tehran,706.29,389.14,12,57.1,26.6,342,29
+120,India,Delhi,815.72,671.76,17,81.9,34.0,236,32
+121,India,Mumbai,870.53,397.63,11,66.3,20.8,215,10
+122,India,Bengaluru,846.97,796.83,10,59.6,6.9,177,10
+123,Pakistan,Karachi,923.68,307.61,9,60.9,23.4,163,11
+124,Bangladesh,Dhaka,899.97,373.1,24,74.9,34.0,192,12
+125,Sri Lanka,Colombo,968.83,257.86,21,77.1,34.0,161,19
+126,Nepal,Kathmandu,906.26,788.6,14,96.2,29.4,216,27
+127,China,Beijing,916.42,347.58,14,61.0,28.1,233,13
+128,China,Shanghai,909.79,742.91,14,46.8,30.7,276,38
+129,China,Shenzhen,909.06,439.81,10,76.6,21.9,162,19
+130,China,Chengdu,938.87,728.3,9,59.8,20.5,174,16
+131,Japan,Tokyo,927.8,459.19,13,73.1,31.2,160,8
+132,Japan,Osaka,912.41,348.58,9,45.0,19.2,121,19
+133,Japan,Kyoto,818.0,368.59,9,69.9,21.7,136,21
+134,South Korea,Seoul,850.96,370.33,14,87.2,14.0,290,15
+135,Singapore,Singapore,881.19,418.55,11,67.4,22.2,275,9
+136,Thailand,Bangkok,929.52,519.39,10,54.9,6.5,103,5
+137,Thailand,Phuket,971.37,603.69,23,85.6,34.0,218,12
+138,Vietnam,Hanoi,994.42,614.62,18,80.1,34.0,123,8
+139,Vietnam,Ho Chi Minh City,1000.0,412.21,20,70.1,34.0,184,26
+140,Indonesia,Jakarta,965.37,485.82,12,45.0,10.7,173,37
+141,Indonesia,Bali,964.56,272.86,18,84.9,32.5,151,18
+142,Philippines,Manila,806.25,415.15,10,69.0,30.9,190,13
+143,Malaysia,Kuala Lumpur,991.48,726.48,19,76.9,34.0,181,17
+144,Hong Kong,Hong Kong,857.65,649.29,23,85.8,34.0,163,19
+145,Taiwan,Taipei,951.13,612.61,37,91.0,34.0,265,31
+146,Australia,Sydney,968.96,115.02,19,91.2,34.0,240,27
+147,Australia,Melbourne,999.11,227.84,17,77.8,14.1,259,9
+148,New Zealand,Auckland,858.64,169.02,12,57.9,18.1,223,18
+149,Finland,Tampere Metro 275,623.99,298.14,26,84.7,34.0,159,31
+150,Germany,Berlin Metro 2,918.08,509.73,21,83.7,14.8,137,20
+151,Taiwan,Taipei Metro 484,941.9,603.89,39,84.7,24.2,390,19
+152,Taiwan,Taipei Metro 889,926.01,635.37,40,85.0,31.1,194,31
+153,Germany,Munich Metro 767,755.2,315.5,13,68.4,13.1,252,22
+154,Brazil,Rio de Janeiro Metro 928,282.91,546.45,16,60.5,34.0,208,11
+155,Canada,Toronto Metro 506,348.08,416.99,16,63.7,34.0,277,33
+156,Portugal,Lisbon Metro 203,18.11,28.88,5,78.7,21.4,270,11
+157,Greece,Santorini Metro 192,404.6,396.94,26,83.0,34.0,235,21
+158,Vietnam,Hanoi Metro 329,992.82,538.02,10,72.5,34.0,178,29
+159,Germany,Heidelberg Metro 982,616.75,386.27,19,81.2,16.3,320,16
+160,Sweden,Gothenburg Metro 14,712.26,449.96,27,79.3,34.0,221,26
+161,Kenya,Mombasa Metro 792,379.2,104.94,13,87.4,34.0,157,21
+162,Taiwan,Taipei Metro 969,957.04,683.5,37,74.6,34.0,200,12
+163,France,Bordeaux Metro 860,438.74,362.7,11,98.0,6.5,203,9
+164,Mexico,Mexico City Metro 720,35.28,592.28,35,98.0,34.0,175,18
+165,Ghana,Accra Metro 520,435.39,260.6,16,45.0,22.4,158,6
+166,Turkey,Istanbul Metro 791,433.25,361.43,5,45.0,8.2,230,12
+167,Chile,Santiago Metro 987,62.82,877.01,28,79.8,30.5,211,9
+168,Sweden,Gothenburg Metro 14 Metro 383,733.38,447.96,26,77.7,22.1,220,13
+169,Thailand,Phuket Metro 161,986.83,519.97,24,98.0,34.0,204,17
+170,France,Strasbourg Metro 942,802.71,414.62,19,70.7,14.5,219,10
+171,Morocco,Casablanca Metro 146,595.19,157.51,9,69.7,34.0,77,5
+172,Kenya,Nairobi Metro 282,660.07,242.14,14,61.8,34.0,100,15
+173,USA,Las Vegas Metro 173,7.42,391.43,23,55.0,28.1,132,21
+174,Australia,Sydney Metro 481,852.46,68.47,16,87.9,34.0,196,6
+175,Ireland,Dublin Metro 960,331.71,645.32,11,67.4,19.7,320,29
+176,Italy,Turin Metro 333,567.85,296.46,23,68.6,32.5,174,14
+177,Portugal,Lisbon Metro 203 Metro 102,15.62,79.48,16,79.7,28.3,338,13
+178,Taiwan,Taipei Metro 219,982.92,594.74,32,85.3,30.3,390,12
+179,Germany,Heidelberg Metro 436,678.22,359.91,10,77.9,26.8,205,14
+180,Switzerland,Basel Metro 429,576.13,353.8,15,76.7,14.1,176,43
+181,Egypt,Cairo Metro 600,625.34,137.78,29,80.5,34.0,112,14
+182,Sweden,Stockholm Metro 307,557.24,396.63,37,77.3,30.0,161,10
+183,United Kingdom,Manchester Metro 73,304.06,658.15,28,84.8,17.8,269,13
+184,Netherlands,Utrecht Metro 557,615.53,437.22,17,59.5,19.9,194,19
+185,Portugal,Lisbon Metro 162,0.0,21.14,19,68.8,25.0,231,23
+186,Canada,Montreal Metro 141,57.14,453.47,12,45.0,34.0,106,5
+187,Germany,Cologne Metro 808,561.91,344.63,36,89.5,20.0,184,27
+188,Switzerland,Basel Metro 429 Metro 511,622.44,349.33,10,79.7,14.6,369,11
+189,Brazil,São Paulo Metro 388,77.63,894.9,9,73.0,33.2,214,12
+190,Vietnam,Hanoi Metro 329 Metro 69,996.03,542.48,5,64.7,34.0,161,10
+191,Vietnam,Hanoi Metro 329 Metro 69 Metro 92,984.93,556.67,5,54.3,34.0,141,25
+192,Saudi Arabia,Riyadh Metro 537,782.46,157.71,7,55.7,6.9,143,13
+193,Thailand,Phuket Metro 161 Metro 102,1000.0,438.85,35,98.0,31.3,287,15
+194,Ethiopia,Addis Ababa Metro 862,512.71,6.73,21,71.8,17.8,172,24
+195,Italy,Rome Metro 998,643.19,67.37,20,90.1,21.4,320,31
+196,Brazil,Rio de Janeiro Metro 123,198.97,484.66,15,56.6,34.0,155,5
+197,United Kingdom,Glasgow Metro 315,698.63,408.92,12,57.9,30.2,152,9
+198,Greece,Santorini Metro 192 Metro 74,373.75,373.35,29,73.5,34.0,179,11
+199,Mexico,Mexico City Metro 712,32.6,609.8,25,95.3,28.4,256,31
+200,UAE,Abu Dhabi Metro 409,691.39,231.37,15,71.5,34.0,271,21
+201,Canada,Montreal Metro 141 Metro 552,37.28,467.86,13,45.0,34.0,155,28
+202,Sweden,Stockholm Metro 307 Metro 134,563.82,460.65,37,65.2,25.3,174,13
+203,Nepal,Kathmandu Metro 953,913.32,763.9,16,90.7,24.6,390,14
+204,Egypt,Alexandria Metro 380,655.5,267.42,14,64.5,12.0,198,12
+205,Spain,Bilbao Metro 967,273.19,241.33,20,60.1,28.4,117,33
+206,Germany,Hamburg Metro 388,624.88,549.06,15,72.6,27.4,219,22
+207,Saudi Arabia,Riyadh Metro 537 Metro 595,784.14,200.85,5,65.6,10.6,305,9
+208,Germany,Cologne Metro 379,681.79,455.93,14,84.7,31.9,292,17
+209,Switzerland,Zurich Metro 440,644.5,392.77,5,89.5,17.9,351,24
+210,Switzerland,Basel Metro 429 Metro 16,498.92,382.21,16,80.3,13.2,254,22
+211,Brazil,Rio de Janeiro Metro 255,227.12,492.72,27,75.9,27.8,146,22
+212,Ethiopia,Addis Ababa Metro 862 Metro 42,539.77,0.0,23,62.2,9.6,153,12
+213,Iran,Tehran Metro 209,701.79,388.57,5,63.0,27.1,178,13
+214,Indonesia,Bali Metro 266,921.32,293.25,31,85.9,27.2,125,25
+215,Luxembourg,Luxembourg City Metro 34,518.6,397.29,16,93.3,14.8,202,18
+216,Spain,Seville Metro 467,221.3,120.68,14,87.7,19.1,390,15
+217,USA,Houston Metro 911,255.42,621.63,17,70.1,28.2,173,10
+218,Mexico,Cancún Metro 779,332.62,981.27,9,57.7,6.5,201,29
+219,Nepal,Kathmandu Metro 953 Metro 743,894.08,824.53,18,95.1,20.3,250,7
+220,Poland,Warsaw Metro 217,542.86,236.86,19,84.4,34.0,368,12
+221,Belgium,Bruges Metro 436,486.73,402.04,8,82.3,16.0,185,20
+222,Austria,Vienna Metro 183,809.74,414.09,5,90.8,16.8,380,17
+223,Israel,Tel Aviv-Yafo Metro 645,740.16,428.12,7,75.4,28.9,283,30
+224,Vietnam,Hanoi Metro 329 Metro 864,959.18,567.52,7,56.6,29.1,297,25
+225,Czechia,Prague Metro 240,681.96,482.4,5,63.4,13.6,192,9
+226,Singapore,Singapore Metro 438,892.21,414.05,10,56.2,29.6,127,24
+227,Nepal,Kathmandu Metro 623,906.83,794.52,22,97.4,33.8,162,15
+228,Denmark,Copenhagen Metro 358,736.41,428.83,22,98.0,27.4,288,5
+229,Canada,Montreal Metro 141 Metro 59,0.0,417.22,15,51.3,34.0,158,21
+230,Finland,Tampere Metro 275 Metro 73,652.74,248.5,34,69.3,28.6,353,7
+231,Germany,Hamburg Metro 301,703.92,556.61,11,72.6,28.7,232,21
+232,Germany,Berlin Metro 875,859.72,508.87,18,69.4,15.6,120,17
+233,Senegal,Dakar Metro 183,661.87,147.62,10,48.5,29.3,99,12
+234,Germany,Heidelberg Metro 430,659.79,353.26,16,69.4,33.4,225,12
+235,Luxembourg,Luxembourg City Metro 34 Metro 404,587.72,345.82,9,94.5,9.5,206,5
+236,Thailand,Bangkok Metro 208,914.71,520.22,5,45.3,19.9,82,12
+237,Portugal,Porto Metro 227,3.35,84.65,13,82.2,18.1,390,21
+238,Japan,Tokyo Metro 393,944.44,482.78,13,67.3,32.4,141,16
+239,South Africa,Cape Town Metro 442,428.99,11.44,27,83.2,32.2,210,23
+240,Denmark,Copenhagen Metro 358 Metro 797,742.12,410.05,8,93.4,32.5,298,18
+241,South Africa,Cape Town Metro 442 Metro 157,418.08,8.16,29,71.9,29.4,92,20
+242,USA,Miami Metro 743,28.57,969.52,10,64.9,30.0,162,15
+243,Kenya,Mombasa Metro 792 Metro 302,375.25,95.57,20,82.9,34.0,248,28
+244,South Africa,Cape Town Metro 432,459.89,38.38,31,94.7,34.0,152,38
+245,Luxembourg,Luxembourg City Metro 34 Metro 404 Metro 233,593.78,322.48,9,86.5,11.4,164,10
+246,Brazil,Rio de Janeiro Metro 123 Metro 984,196.22,489.26,11,49.6,29.8,118,11
+247,Bangladesh,Dhaka Metro 595,916.99,391.38,22,74.3,34.0,155,29
+248,Turkey,Istanbul Metro 301,509.12,277.55,16,46.1,20.7,148,25
+249,Italy,Venice Metro 243,740.32,237.97,9,53.0,14.3,149,15
+250,Morocco,Casablanca Metro 9,602.75,157.28,15,73.9,34.0,101,5
+251,Germany,Cologne Metro 455,609.52,444.8,29,74.3,34.0,261,22
+252,Ireland,Cork Metro 238,247.58,542.58,5,98.0,6.5,390,11
+253,Netherlands,Utrecht Metro 557 Metro 837,628.51,457.81,26,70.0,15.4,235,7
+254,Vietnam,Hanoi Metro 329 Metro 864 Metro 753,939.12,496.28,7,67.0,21.6,58,11
+255,Sweden,Stockholm Metro 307 Metro 435,506.63,439.1,29,67.7,34.0,252,23
+256,Ghana,Accra Metro 984,427.38,212.7,21,52.4,15.5,61,27
+257,Denmark,Copenhagen Metro 358 Metro 797 Metro 511,749.21,369.64,5,89.4,34.0,379,9
+258,Ghana,Accra Metro 984 Metro 10,466.49,244.37,17,60.0,14.4,77,8
+259,Finland,Tampere Metro 275 Metro 73 Metro 347,629.02,278.46,31,66.8,24.6,180,23
+260,Germany,Berlin Metro 2 Metro 40,863.8,503.01,28,87.8,19.3,268,19
+261,Poland,Kraków Metro 501,518.26,311.84,5,68.0,9.8,353,19
+262,Portugal,Porto Metro 734,18.94,38.47,16,94.5,10.1,312,11
+263,Vietnam,Ho Chi Minh City Metro 960,1000.0,409.81,26,79.5,34.0,223,19
+264,Austria,Salzburg Metro 950,742.13,302.41,7,63.4,6.5,277,13
+265,Canada,Montreal Metro 141 Metro 552 Metro 464,78.28,511.64,21,45.0,34.0,116,19
+266,Poland,Warsaw Metro 771,586.04,253.92,36,71.8,34.0,390,9
+267,Spain,Bilbao Metro 967 Metro 73,249.57,226.69,25,62.0,27.9,226,33
+268,Turkey,Ankara Metro 360,703.08,291.7,17,53.6,6.5,149,5
+269,New Zealand,Auckland Metro 33,840.57,197.58,9,58.4,17.9,180,19
+270,Nepal,Kathmandu Metro 310,903.1,811.4,19,94.5,34.0,181,5
+271,Germany,Berlin Metro 2 Metro 256,917.6,506.24,22,76.7,23.4,217,6
+272,India,Delhi Metro 477,806.59,649.92,21,81.7,34.0,155,17
+273,Egypt,Cairo Metro 124,582.67,108.46,41,84.7,34.0,165,27
+274,Switzerland,Basel Metro 429 Metro 274,582.05,340.61,15,80.4,8.5,196,19
+275,Thailand,Bangkok Metro 208 Metro 941,885.65,510.01,8,46.0,17.0,139,36
+276,South Africa,Cape Town Metro 432 Metro 942,442.28,61.33,25,87.4,34.0,100,25
+277,Canada,Montreal Metro 141 Metro 59 Metro 543,26.77,405.5,19,45.0,24.5,167,19
+278,France,Marseille Metro 407,659.68,206.44,17,81.5,18.4,239,11
+279,USA,New York Metro 772,203.18,1000.0,5,63.8,25.6,149,16
+280,Greece,Santorini Metro 192 Metro 656,425.6,477.57,27,75.7,34.0,168,17
+281,Germany,Stuttgart Metro 532,668.98,365.6,19,66.2,10.4,141,10
+282,Norway,Oslo Metro 960,691.95,499.85,19,86.9,29.1,212,25
+283,Luxembourg,Luxembourg City Metro 34 Metro 660,553.77,445.56,19,79.2,14.6,252,16
+284,Nigeria,Abuja Metro 161,426.72,62.89,18,97.5,32.4,96,6
+285,Brazil,Rio de Janeiro Metro 928 Metro 970,260.24,490.49,15,52.3,33.5,222,10
+286,Sweden,Gothenburg Metro 14 Metro 171,676.49,480.82,21,68.4,26.5,167,20
+287,Germany,Munich Metro 182,666.0,294.59,12,68.3,16.9,219,7
+288,Jordan,Amman Metro 963,769.08,406.63,29,88.3,34.0,295,22
+289,South Africa,Durban Metro 737,492.42,45.15,7,49.0,21.0,75,6
+290,Luxembourg,Luxembourg City Metro 34 Metro 404 Metro 233 Metro 929,636.7,285.59,11,74.9,15.8,164,17
+291,Russia,Moscow Metro 555,522.35,573.97,16,54.5,34.0,175,23
+292,UAE,Abu Dhabi Metro 409 Metro 562,661.17,189.79,18,71.9,31.3,390,27
+293,Greece,Santorini Metro 192 Metro 656 Metro 216,405.1,466.38,20,84.5,33.1,166,13
+294,Greece,Santorini Metro 192 Metro 231,391.63,371.45,37,91.2,34.0,241,21
+295,Portugal,Porto Metro 227 Metro 306,34.5,58.62,5,89.7,15.7,390,14
+296,Australia,Sydney Metro 5,975.18,113.74,25,95.3,34.0,231,24
+297,Peru,Lima Metro 103,64.78,875.21,25,67.1,33.8,135,17
+298,Russia,Saint Petersburg Metro 516,536.66,539.87,5,84.3,13.4,213,5
+299,Poland,Warsaw Metro 771 Metro 995,596.92,271.14,45,74.2,26.9,293,19

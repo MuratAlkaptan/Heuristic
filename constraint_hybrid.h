@@ -1,41 +1,56 @@
-// hybrid: small random repair attempt, then evaluate with penalties
-//O(N * maxSwaps) where N is the number of cities in the permutation
-//O(1) space
-static int randi_local(int lo, int hi) { return lo + (rand() % (hi - lo + 1)); }
+#pragma once
+#include <algorithm>
+#include <cstdlib>
 
-Metrics assess(Genome& g,
-               const vector<City>& cities, const vector<vector<double>>& travel,
-               double budget, double timeLimit,
-               double alphaTime, double alphaBudget,
-               int maxSwaps) {
+// local rng for header
+static inline int randi_local(int lo, int hi) { return lo + (std::rand() % (hi - lo + 1)); }
 
-    int N = cities.size();
-    g.len = max(1, g.len);
+// Deb-style comparator inside header (keeps header independent)
+static inline bool better_local(const Metrics& a, const Metrics& b) {
+    if (a.feasible != b.feasible) return a.feasible;
+    if (a.feasible) return a.fitness > b.fitness;
+    return a.violation < b.violation;
+}
 
-    // quick repair attempt: swap a prefix city with a non-prefix city if it reduces violation
-    Metrics cur = evaluate(cities, travel, g, budget, timeLimit, 0, 0);
+// Hybrid assess: light repair via swap attempts that reduce violation / improve feasibility
+// maxSwaps = methodParam
+static inline Metrics assess(Genome& g,
+                             const std::vector<City>& cities,
+                             const std::vector<std::vector<double>>& travel,
+                             double budget, double timeLimit,
+                             double alphaTime, double alphaBudget,
+                             int maxSwaps) {
 
-    if (!cur.feasible && g.len < N && maxSwaps > 0) {
-        for (int it = 0; it < maxSwaps; ++it) {
-            int i = randi_local(0, g.len - 1);
-            int j = randi_local(g.len, N - 1);
+    int N = (int)cities.size();
+    g.len = std::max(1, std::min(N, g.len));
 
-            swap(g.perm[i], g.perm[j]);
+    // Evaluate current
+    Metrics bestM = evaluate(cities, travel, g, budget, timeLimit, alphaTime, alphaBudget);
 
-            Metrics cand = evaluate(cities, travel, g, budget, timeLimit, 0, 0);
+    // If already feasible, no need to repair aggressively
+    if (bestM.feasible) return bestM;
 
-            double curV = max(0.0, cur.timeDays - timeLimit) + max(0.0, cur.costEUR - budget);
-            double canV = max(0.0, cand.timeDays - timeLimit) + max(0.0, cand.costEUR - budget);
+    // Try to improve by swapping a city inside the prefix with one outside
+    // (this tends to change cost/time characteristics)
+    int L = g.len;
 
-            if (canV <= curV) {
-                cur = cand;
-                if (cur.feasible) break;
-            } else {
-                swap(g.perm[i], g.perm[j]); // revert
-            }
+    for (int t = 0; t < maxSwaps; ++t) {
+        if (L <= 0 || L >= N) break;
+
+        int i = randi_local(0, L - 1);
+        int j = randi_local(L, N - 1);
+
+        std::swap(g.perm[i], g.perm[j]);
+        Metrics candM = evaluate(cities, travel, g, budget, timeLimit, alphaTime, alphaBudget);
+
+        if (better_local(candM, bestM)) {
+            bestM = candM; // keep swap
+            if (bestM.feasible) break;
+        } else {
+            // revert
+            std::swap(g.perm[i], g.perm[j]);
         }
     }
 
-    // final evaluation uses penalties
-    return evaluate(cities, travel, g, budget, timeLimit, alphaTime, alphaBudget);
+    return bestM;
 }
