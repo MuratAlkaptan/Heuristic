@@ -1,0 +1,3 @@
+/Users/muratalkaptan/Heuristic/build/CMakeFiles/heuristic.dir
+/Users/muratalkaptan/Heuristic/build/CMakeFiles/edit_cache.dir
+/Users/muratalkaptan/Heuristic/build/CMakeFiles/rebuild_cache.dir
