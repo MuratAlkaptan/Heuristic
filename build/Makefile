@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named heuristic
+# Target rules for targets named centroid
 
 # Build rule for target.
-heuristic: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 heuristic
-.PHONY : heuristic
+centroid: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 centroid
+.PHONY : centroid
 
 # fast build rule for target.
-heuristic/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heuristic.dir/build.make CMakeFiles/heuristic.dir/build
-.PHONY : heuristic/fast
+centroid/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/centroid.dir/build.make CMakeFiles/centroid.dir/build
+.PHONY : centroid/fast
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heuristic.dir/build.make CMakeFiles/heuristic.dir/src/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/centroid.dir/build.make CMakeFiles/centroid.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -142,7 +142,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heuristic.dir/build.make CMakeFiles/heuristic.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/centroid.dir/build.make CMakeFiles/centroid.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -150,7 +150,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heuristic.dir/build.make CMakeFiles/heuristic.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/centroid.dir/build.make CMakeFiles/centroid.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -161,7 +161,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... heuristic"
+	@echo "... centroid"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

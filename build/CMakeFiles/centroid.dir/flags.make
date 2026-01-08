@@ -6,7 +6,7 @@ CXX_DEFINES = -DBOOST_SERIALIZATION_DYN_LINK -DBOOST_SERIALIZATION_NO_LIB -DNLOP
 
 CXX_INCLUDES = -I/Users/muratalkaptan/Heuristic/include -isystem /opt/homebrew/include -isystem /opt/homebrew/include/eigen3
 
-CXX_FLAGSarm64 = -O3 -DNDEBUG -std=gnu++17 -arch arm64
+CXX_FLAGSarm64 = -std=gnu++17 -arch arm64
 
-CXX_FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64
+CXX_FLAGS = -std=gnu++17 -arch arm64
 

@@ -1,2 +1,2 @@
-# Empty dependencies file for heuristic.
+# Empty dependencies file for centroid.
 # This may be replaced when dependencies are built.

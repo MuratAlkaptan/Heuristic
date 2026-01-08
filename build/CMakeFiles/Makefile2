@@ -63,11 +63,11 @@ CMAKE_BINARY_DIR = /Users/muratalkaptan/Heuristic/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/heuristic.dir/all
+all: CMakeFiles/centroid.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/heuristic.dir/codegen
+codegen: CMakeFiles/centroid.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -75,40 +75,40 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/heuristic.dir/clean
+clean: CMakeFiles/centroid.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/heuristic.dir
+# Target rules for target CMakeFiles/centroid.dir
 
 # All Build rule for target.
-CMakeFiles/heuristic.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heuristic.dir/build.make CMakeFiles/heuristic.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heuristic.dir/build.make CMakeFiles/heuristic.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/muratalkaptan/Heuristic/build/CMakeFiles --progress-num=1,2 "Built target heuristic"
-.PHONY : CMakeFiles/heuristic.dir/all
+CMakeFiles/centroid.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/centroid.dir/build.make CMakeFiles/centroid.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/centroid.dir/build.make CMakeFiles/centroid.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/muratalkaptan/Heuristic/build/CMakeFiles --progress-num=1,2 "Built target centroid"
+.PHONY : CMakeFiles/centroid.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/heuristic.dir/rule: cmake_check_build_system
+CMakeFiles/centroid.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/muratalkaptan/Heuristic/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/heuristic.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/centroid.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/muratalkaptan/Heuristic/build/CMakeFiles 0
-.PHONY : CMakeFiles/heuristic.dir/rule
+.PHONY : CMakeFiles/centroid.dir/rule
 
 # Convenience name for target.
-heuristic: CMakeFiles/heuristic.dir/rule
-.PHONY : heuristic
+centroid: CMakeFiles/centroid.dir/rule
+.PHONY : centroid
 
 # codegen rule for target.
-CMakeFiles/heuristic.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heuristic.dir/build.make CMakeFiles/heuristic.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/muratalkaptan/Heuristic/build/CMakeFiles --progress-num=1,2 "Finished codegen for target heuristic"
-.PHONY : CMakeFiles/heuristic.dir/codegen
+CMakeFiles/centroid.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/centroid.dir/build.make CMakeFiles/centroid.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/muratalkaptan/Heuristic/build/CMakeFiles --progress-num=1,2 "Finished codegen for target centroid"
+.PHONY : CMakeFiles/centroid.dir/codegen
 
 # clean rule for target.
-CMakeFiles/heuristic.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/heuristic.dir/build.make CMakeFiles/heuristic.dir/clean
-.PHONY : CMakeFiles/heuristic.dir/clean
+CMakeFiles/centroid.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/centroid.dir/build.make CMakeFiles/centroid.dir/clean
+.PHONY : CMakeFiles/centroid.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
